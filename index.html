@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <div class="calculator">
+            <div class="row">
+                <input id="display" type="text" placeholder="0">
+            </div>
+
+            <!-- button 7,8,9 & * -->
+            <div class="row">
+                <div class="button">
+                    <button onclick="addDisplayValue(7)" class="btn">7</button>
+                </div>
+                <div class="button">
+                    <button onclick="addDisplayValue(8)" class="btn">8</button>
+                </div>
+                <div class="button">
+                    <button onclick="addDisplayValue(9)" class="btn">9</button>
+                </div>
+                <div class="button">
+                    <button onclick="addDisplayValue('*')" class="btn">*</button>
+                </div>
+            </div>
+
+            <!-- button 4,5,6 & / -->
+            <div class="row">
+                <div class="button">
+                    <button onclick="addDisplayValue(4)" class="btn">4</button>
+                </div>
+                <div class="button">
+                    <button onclick="addDisplayValue(5)" class="btn">5</button>
+                </div>
+                <div class="button">
+                    <button onclick="addDisplayValue(6)" class="btn">6</button>
+                </div>
+                <div class="button">
+                    <button onclick="addDisplayValue('/')" class="btn">/</button>
+                </div>
+            </div>
+            
+            <!-- button 1,2,3 & - -->
+            <div class="row">
+                <div class="button">
+                    <button onclick="addDisplayValue(1)" class="btn">1</button>
+                </div>
+                <div class="button">
+                    <button onclick="addDisplayValue(2)" class="btn">2</button>
+                </div>
+                <div class="button">
+                    <button onclick="addDisplayValue(3)" class="btn">3</button>
+                </div>
+                <div class="button">
+                    <button onclick="addDisplayValue('-')" class="btn">-</button>
+                </div>
+            </div>
+
+            <!-- button 0, 00, . & + -->
+            <div class="row">
+                <div class="button">
+                    <button onclick="addDisplayValue(0)" class="btn">0</button>
+                </div>
+                <div class="button">
+                    <button onclick="addDisplayValue('00')"  class="btn">00</button>
+                </div>
+                <div class="button">
+                    <button onclick="addDisplayValue('.')" class="btn">.</button>
+                </div>
+                <div class="button">
+                    <button onclick="addDisplayValue('+')" class="btn">+</button>
+                </div>
+            </div>
+
+            <!-- button CE, Back & = -->
+            <div class="row">
+                <div class="button">
+                    <button onclick="setDisplayValue('')" class="btn">CE</button>
+                </div>
+                <div class="button">
+                    <button onclick="backSpace()" class="btn">Check</button>
+                </div>
+                <div class="button">
+                    <button onclick="calculate()" class="btn">=</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+
+        function getDisplayValue(){
+            return  document.querySelector('#display').value
+        }
+
+        function setDisplayValue(value){
+            const display =  document.querySelector('#display')
+            display.value = value
+        }
+
+        function checkError(value){
+            const displayValue =  getDisplayValue()
+            const operatorList = ["+", "-", "*", "/", "."]
+            if (operatorList.includes(value)) {
+
+                let lastKey = displayValue.slice(-1)
+                let operator
+
+                switch(value) {
+                    case '+':
+                        operator = "+"
+                        break;
+
+                    case "-":
+                        operator = "-"
+                        break;
+
+                    case '*':
+                        operator = "*"
+                        break;
+
+                    case "/":
+                        operator = "/"
+                        break;
+
+                    case ".":
+                        operator = "."
+                        break;
+
+                    default:
+                    operator = ""
+                        
+                }
+
+                if (lastKey == operator || ( value == '.' && displayValue.includes(value) )) {
+                    return false
+                }else{
+                    return true
+                }
+            }else{
+                return true
+            }
+            
+
+
+
+           // displayValue.includes('+')
+
+           // 'a nice string'.includes('b') //false
+        }
+
+        function addDisplayValue(value){
+            if (checkError(value)) {
+                const displayValue =  getDisplayValue()
+                setDisplayValue(displayValue + value)
+            }else{
+                return false
+            }
+            
+        }
+
+        function calculate(){
+            const value = eval(getDisplayValue())
+            setDisplayValue(value)
+        }
+
+        function backSpace(){
+            let value = getDisplayValue()
+            setDisplayValue(value.slice(0, -1))
+        }
+    </script>
+</body>
+</html>
