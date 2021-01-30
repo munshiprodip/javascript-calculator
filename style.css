@@ -23,9 +23,11 @@ input#display {
     outline: none;
     font-size: 35px;
     padding: 10px;
-    box-shadow: inset 5px 6px 5px #ddd;
+    box-shadow: inset 4px 4px 1px #888383;
     text-align: right;
     margin-bottom: 50px;
+    color: #fff;
+    background: #383040;
 }
 
 .button {
